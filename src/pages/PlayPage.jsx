@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { GAMES, SYSTEMS } from '../data/games';
 import Emulator from '../components/Emulator';
+import MobileGamepad from '../components/MobileGamepad';
 import Controls from '../components/Controls';
 import LandscapePrompt from '../components/LandscapePrompt';
 import GameDetail from '../components/GameDetail';
@@ -58,6 +59,7 @@ export default function PlayPage({ favs, toggleFav, isFav, addRecent }) {
       <LandscapePrompt />
       <div className="pp-body">
         <Emulator game={game} />
+        <MobileGamepad />
         <Controls />
         <GameDetail game={game} />
         <RelatedGames game={game} />

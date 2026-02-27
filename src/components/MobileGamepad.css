@@ -1,0 +1,82 @@
+/* Mobile Gamepad — only visible on mobile */
+.mgp{display:none}
+
+@media(max-width:768px){
+  .mgp{
+    display:flex;flex-direction:column;gap:10px;
+    padding:12px 10px 16px;
+    background:rgba(10,10,18,.95);
+    border-top:1px solid rgba(0,255,136,.12);
+    -webkit-touch-callout:none;user-select:none;touch-action:none;
+  }
+
+  /* All buttons base */
+  .mgp-btn{
+    border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--pixel);
+    -webkit-tap-highlight-color:transparent;
+    transition:background .08s,transform .08s;
+  }
+  .mgp-btn:active{background:var(--accent)!important;color:#000!important;transform:scale(.93)}
+
+  /* Shoulder buttons */
+  .mgp-shoulders{display:flex;justify-content:space-between;gap:10px}
+  .mgp-shoulder{
+    flex:1;height:38px;
+    background:rgba(255,255,255,.06);
+    border-radius:6px;
+    color:var(--accent);font-size:11px;letter-spacing:1px;
+    border:1px solid rgba(0,255,136,.2);
+  }
+
+  /* Main row: dpad left, actions right */
+  .mgp-main{display:flex;align-items:center;justify-content:space-between;padding:0 6px}
+
+  /* D-Pad grid */
+  .mgp-dpad{
+    display:grid;
+    grid-template-columns:48px 48px 48px;
+    grid-template-rows:48px 48px 48px;
+    gap:3px;
+  }
+  .mgp-d{
+    background:rgba(255,255,255,.07);
+    color:#ccc;font-size:16px;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,.1);
+  }
+  .mgp-d-up{grid-column:2;grid-row:1}
+  .mgp-d-left{grid-column:1;grid-row:2}
+  .mgp-d-center{grid-column:2;grid-row:2;background:rgba(255,255,255,.03);border-radius:6px}
+  .mgp-d-right{grid-column:3;grid-row:2}
+  .mgp-d-down{grid-column:2;grid-row:3}
+
+  /* A / B action buttons */
+  .mgp-actions{display:flex;align-items:center;gap:14px}
+  .mgp-ab{
+    width:58px;height:58px;
+    border-radius:50%;
+    font-size:16px;font-weight:700;
+    border:2px solid rgba(0,255,136,.3);
+  }
+  .mgp-b{background:rgba(255,60,60,.15);color:#ff6b6b}
+  .mgp-a{background:rgba(0,255,136,.12);color:var(--accent)}
+
+  /* Center meta buttons */
+  .mgp-center{display:flex;justify-content:center;gap:24px}
+  .mgp-meta{
+    padding:8px 20px;
+    background:rgba(255,255,255,.05);
+    border-radius:20px;
+    color:var(--muted);font-size:9px;letter-spacing:1.5px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+}
+
+/* Smaller phones */
+@media(max-width:380px){
+  .mgp-dpad{grid-template-columns:40px 40px 40px;grid-template-rows:40px 40px 40px}
+  .mgp-ab{width:50px;height:50px;font-size:14px}
+  .mgp-meta{padding:7px 16px;font-size:8px}
+}

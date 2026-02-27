@@ -2,14 +2,6 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { SYSTEMS, romUrl } from '../data/games';
 import './Emulator.css';
 
-const NES_GAMEPAD = [
-  { type: 'dpad', location: 'left', left: '3%', joystickInput: false, inputValues: [4, 5, 6, 7] },
-  { type: 'button', location: 'right', text: 'B', id: 'b', input_value: 0, left: 40, top: 0, fontSize: 25 },
-  { type: 'button', location: 'right', text: 'A', id: 'a', input_value: 8, bold: true, left: 81, fontSize: 25 },
-  { type: 'button', location: 'center', text: 'SELECT', id: 'select', input_value: 2, fontSize: 12, left: -5 },
-  { type: 'button', location: 'center', text: 'START', id: 'start', input_value: 3, fontSize: 12, left: 60 },
-];
-
 export default function Emulator({ game }) {
   const ref = useRef(null);
   const wrapRef = useRef(null);
@@ -71,11 +63,6 @@ export default function Emulator({ game }) {
     window.EJS_color = '#00ff88';
     window.EJS_startOnLoaded = true;
     window.EJS_defaultOptions = {};
-
-    // Virtual gamepad for touch devices
-    if (game.system === 'nes') {
-      window.EJS_VirtualGamepadSettings = NES_GAMEPAD;
-    }
 
     // PS1 requires BIOS
     if (game.system === 'ps1') {
