@@ -1,16 +1,14 @@
 import { useState, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { SYSTEMS, GAMES, imgUrl } from '../data/games';
 import './RelatedGames.css';
 
 const RelatedCard = memo(function RelatedCard({ game }) {
-  const nav = useNavigate();
   const sys = SYSTEMS[game.system];
   const [err, setErr] = useState(false);
   const src = imgUrl(game);
 
   return (
-    <div className="rc" onClick={() => nav(`/play/${game.slug}`)}>
+    <div className="rc" onClick={() => { window.location.href = `/play/${game.slug}`; }}>
       <div className="rc-cover">
         {src && !err ? (
           <img src={src} alt={game.title} loading="lazy" onError={() => setErr(true)} />

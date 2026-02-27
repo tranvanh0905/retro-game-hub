@@ -33,7 +33,7 @@ export default function Header() {
   const handleSelect = (slug) => {
     setSearch('');
     setOpen(false);
-    nav(`/play/${slug}`);
+    window.location.href = `/play/${slug}`;
   };
 
   const handleKeyDown = (e) => {

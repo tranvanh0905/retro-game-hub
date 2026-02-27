@@ -14,6 +14,9 @@
 .emu-wrap:fullscreen,.emu-wrap:-webkit-full-screen{width:100vw;height:100vh;aspect-ratio:auto;border:none;border-radius:0;background:#000}
 .emu-wrap:fullscreen .emu-target,.emu-wrap:-webkit-full-screen .emu-target{width:100%;height:100%}
 
+/* Hide EmulatorJS built-in virtual gamepad (we use custom MobileGamepad) */
+.ejs_virtualGamepad_parent,.ejs_gamepad_section,[class*="ejs_virtualGamepad"]{display:none!important}
+
 /* Mobile: maximize emulator */
 @media(max-width:768px){
   .emu-wrap{border-radius:0;border-left:none;border-right:none}
