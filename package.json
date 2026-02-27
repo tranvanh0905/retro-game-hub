@@ -14,8 +14,10 @@
     "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.999.0",
     "@types/react": "^18.3.12",
     "@vitejs/plugin-react": "^4.3.4",
+    "mime-types": "^3.0.2",
     "vite": "^6.0.0"
   }
 }

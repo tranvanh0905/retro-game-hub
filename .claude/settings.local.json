@@ -23,7 +23,22 @@
       "Bash(vercel --prod --yes)",
       "Bash(git init /Users/anhtv/Downloads/retro-hub-react)",
       "Bash(git -C /Users/anhtv/Downloads/retro-hub-react add -A)",
-      "Bash(git -C /Users/anhtv/Downloads/retro-hub-react status --short)"
+      "Bash(git -C /Users/anhtv/Downloads/retro-hub-react status --short)",
+      "Bash(git -C:*)",
+      "Bash(gh auth status)",
+      "Bash(brew install gh)",
+      "Bash(npm install -g wrangler)",
+      "Bash(wrangler whoami)",
+      "Bash(wrangler r2 bucket create retro-game-hub)",
+      "Bash(wrangler r2 bucket list)",
+      "Bash(npm install --save-dev @aws-sdk/client-s3 mime-types)",
+      "Bash(R2_ACCOUNT_ID=\"b1f6ba95efc0dd022b945ab94556892e\" R2_ACCESS_KEY=\"OtkbDOzDGUel-djw1Qna5ncWE8VUQstwN8nqhAy6\" R2_SECRET_KEY=\"5c85a2efd629004d8cfb2d53f9dd3c01a60567b111532d27997211746cb1c959\" node scripts/upload-r2.mjs)",
+      "Bash(wrangler r2 object put \"retro-game-hub/test.txt\" --file=/tmp/test-r2.txt --remote)",
+      "Bash(chmod +x /Users/anhtv/Downloads/retro-hub-react/scripts/upload-r2.sh)",
+      "Bash(bash /Users/anhtv/Downloads/retro-hub-react/scripts/upload-r2.sh)",
+      "Bash(vercel env ls)",
+      "Bash(vercel env add VITE_CDN_URL production)",
+      "Bash(vercel --prod --yes --archive=tgz)"
     ]
   }
 }
