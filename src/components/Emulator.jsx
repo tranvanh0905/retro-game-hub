@@ -50,7 +50,9 @@ export default function Emulator({ game }) {
     if (ref.current) ref.current.innerHTML = '';
 
     // Cleanup old EJS globals
-    ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions'].forEach(k => delete window[k]);
+    ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions','EJS_biosUrl'].forEach(k => delete window[k]);
+
+    const CDN = import.meta.env.VITE_CDN_URL || '';
 
     // Set new EJS globals
     window.EJS_player = '#emu-target';
@@ -61,6 +63,11 @@ export default function Emulator({ game }) {
     window.EJS_color = '#00ff88';
     window.EJS_startOnLoaded = true;
     window.EJS_defaultOptions = {};
+
+    // PS1 requires BIOS
+    if (game.system === 'ps1') {
+      window.EJS_biosUrl = `${CDN}/bios/scph5501.bin`;
+    }
 
     // Load EmulatorJS
     const s = document.createElement('script');
@@ -75,7 +82,7 @@ export default function Emulator({ game }) {
       if (scriptRef.current && document.body.contains(scriptRef.current)) {
         document.body.removeChild(scriptRef.current);
       }
-      ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions'].forEach(k => delete window[k]);
+      ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions','EJS_biosUrl'].forEach(k => delete window[k]);
     };
   }, [game?.id]);
 
