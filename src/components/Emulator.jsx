@@ -63,6 +63,8 @@ export default function Emulator({ game }) {
     window.EJS_color = '#00ff88';
     window.EJS_startOnLoaded = true;
     window.EJS_defaultOptions = {};
+    // Disable built-in virtual gamepad (we use custom MobileGamepad)
+    window.EJS_VirtualGamepadSettings = [];
 
     // PS1 requires BIOS
     if (game.system === 'ps1') {
