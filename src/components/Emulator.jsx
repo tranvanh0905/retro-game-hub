@@ -2,14 +2,12 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { SYSTEMS, romUrl } from '../data/games';
 import './Emulator.css';
 
-const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
 const NES_GAMEPAD = [
   { type: 'dpad', location: 'left', left: '3%', joystickInput: false, inputValues: [4, 5, 6, 7] },
-  { type: 'button', location: 'right', text: 'B', id: 'b', input_value: 0, left: -10, top: 0 },
-  { type: 'button', location: 'right', text: 'A', id: 'a', input_value: 8, bold: true },
-  { type: 'button', location: 'center', text: 'SELECT', id: 'select', input_value: 2, fontSize: 12 },
-  { type: 'button', location: 'center', text: 'START', id: 'start', input_value: 3, fontSize: 12 },
+  { type: 'button', location: 'right', text: 'B', id: 'b', input_value: 0, left: 40, top: 0, fontSize: 25 },
+  { type: 'button', location: 'right', text: 'A', id: 'a', input_value: 8, bold: true, left: 81, fontSize: 25 },
+  { type: 'button', location: 'center', text: 'SELECT', id: 'select', input_value: 2, fontSize: 12, left: -5 },
+  { type: 'button', location: 'center', text: 'START', id: 'start', input_value: 3, fontSize: 12, left: 60 },
 ];
 
 export default function Emulator({ game }) {
@@ -18,7 +16,6 @@ export default function Emulator({ game }) {
   const scriptRef = useRef(null);
   const [status, setStatus] = useState('loading'); // loading | ready | error
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showFsPrompt, setShowFsPrompt] = useState(false);
 
   const toggleFullscreen = useCallback(async () => {
     const target = ref.current;
@@ -89,10 +86,7 @@ export default function Emulator({ game }) {
     const s = document.createElement('script');
     s.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     s.async = true;
-    s.onload = () => setTimeout(() => {
-      setStatus('ready');
-      if (isTouchDevice()) setShowFsPrompt(true);
-    }, 1200);
+    s.onload = () => setTimeout(() => setStatus('ready'), 1200);
     s.onerror = () => setStatus('error');
     document.body.appendChild(s);
     scriptRef.current = s;
@@ -105,30 +99,12 @@ export default function Emulator({ game }) {
     };
   }, [game?.id]);
 
-  const handleFsPrompt = useCallback(() => {
-    setShowFsPrompt(false);
-    toggleFullscreen();
-  }, [toggleFullscreen]);
-
-  // Auto-hide fullscreen prompt after 5s
-  useEffect(() => {
-    if (!showFsPrompt) return;
-    const t = setTimeout(() => setShowFsPrompt(false), 5000);
-    return () => clearTimeout(t);
-  }, [showFsPrompt]);
-
   return (
     <div className={`emu-wrap${isFullscreen ? ' emu-fs' : ''}`} ref={wrapRef}>
       <div id="emu-target" ref={ref} className="emu-target" />
       <button className="emu-fs-btn" onClick={toggleFullscreen} title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}>
         {isFullscreen ? '✕' : '⛶'}
       </button>
-      {showFsPrompt && (
-        <button className="emu-fs-prompt" onClick={handleFsPrompt}>
-          <span className="emu-fs-prompt-icon">⛶</span>
-          Tap to go fullscreen
-        </button>
-      )}
       {status === 'loading' && (
         <div className="emu-overlay">
           <div className="spinner" />
