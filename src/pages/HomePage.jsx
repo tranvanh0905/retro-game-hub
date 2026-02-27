@@ -24,10 +24,12 @@ export default function HomePage({ favs, toggleFav, isFav }) {
     const counts = {};
     for (const g of GAMES) counts[g.system] = (counts[g.system] || 0) + 1;
     return [
-      { id: 'all', label: '🕹️ ALL', count: GAMES.length },
-      ...Object.entries(SYSTEMS).map(([id, sys]) => ({
-        id, label: `${sys.icon} ${sys.name}`, count: counts[id] || 0, color: sys.color,
-      })),
+      { id: 'all', label: '🕹️ ALL', count: GAMES.filter(g => g.system !== 'ps1').length },
+      ...Object.entries(SYSTEMS)
+        .filter(([id]) => id !== 'ps1') // PS1 hidden until BIOS ready
+        .map(([id, sys]) => ({
+          id, label: `${sys.icon} ${sys.name}`, count: counts[id] || 0, color: sys.color,
+        })),
     ];
   }, []);
 
@@ -111,8 +113,8 @@ export default function HomePage({ favs, toggleFav, isFav }) {
           </section>
         )}
 
-        {/* PS1 Section */}
-        {(activeSystem === 'all' || activeSystem === 'ps1') && ps1Games.length > 0 && (
+        {/* PS1 Section — hidden until BIOS ready */}
+        {false && (activeSystem === 'all' || activeSystem === 'ps1') && ps1Games.length > 0 && (
           <section className="featured-section ps1-section">
             <button className="featured-header" onClick={() => setShowPs1(v => !v)}>
               <span className="featured-title ps1-title">{ps1Sys.icon} PLAYSTATION 1</span>
