@@ -1,47 +1,45 @@
 import { useCallback, useRef } from 'react';
 import './MobileGamepad.css';
 
+// Libretro RetroPad button indices
 const BUTTONS = {
-  up:     { key: 'ArrowUp',    code: 'ArrowUp',    keyCode: 38, label: '\u25B2' },
-  down:   { key: 'ArrowDown',  code: 'ArrowDown',  keyCode: 40, label: '\u25BC' },
-  left:   { key: 'ArrowLeft',  code: 'ArrowLeft',  keyCode: 37, label: '\u25C0' },
-  right:  { key: 'ArrowRight', code: 'ArrowRight', keyCode: 39, label: '\u25B6' },
-  a:      { key: 'x',          code: 'KeyX',       keyCode: 88, label: 'A' },
-  b:      { key: 'z',          code: 'KeyZ',       keyCode: 90, label: 'B' },
-  start:  { key: 'Enter',      code: 'Enter',      keyCode: 13, label: 'START' },
-  select: { key: 'Shift',      code: 'ShiftLeft',  keyCode: 16, label: 'SELECT' },
-  l:      { key: 'q',          code: 'KeyQ',       keyCode: 81, label: 'L' },
-  r:      { key: 'e',          code: 'KeyE',       keyCode: 69, label: 'R' },
+  up:     { index: 4,  label: '\u25B2' },
+  down:   { index: 5,  label: '\u25BC' },
+  left:   { index: 6,  label: '\u25C0' },
+  right:  { index: 7,  label: '\u25B6' },
+  a:      { index: 8,  label: 'A' },
+  b:      { index: 0,  label: 'B' },
+  start:  { index: 3,  label: 'START' },
+  select: { index: 2,  label: 'SELECT' },
+  l:      { index: 10, label: 'L' },
+  r:      { index: 11, label: 'R' },
 };
 
-function fireKey(type, btn) {
-  const evt = new KeyboardEvent(type, {
-    key: btn.key,
-    code: btn.code,
-    keyCode: btn.keyCode,
-    which: btn.keyCode,
-    bubbles: true,
-    cancelable: true,
-  });
-  document.dispatchEvent(evt);
+function sendInput(index, pressed) {
+  try {
+    const emu = window.EJS_emulator;
+    if (emu?.gameManager) {
+      emu.gameManager.simulateInput(0, index, pressed ? 1 : 0);
+    }
+  } catch {}
 }
 
 export default function MobileGamepad() {
-  const activeKeys = useRef(new Set());
+  const activeBtns = useRef(new Set());
 
   const onDown = useCallback((btn, e) => {
     e.preventDefault();
-    if (activeKeys.current.has(btn.code)) return;
-    activeKeys.current.add(btn.code);
+    if (activeBtns.current.has(btn.index)) return;
+    activeBtns.current.add(btn.index);
     navigator.vibrate?.(30);
-    fireKey('keydown', btn);
+    sendInput(btn.index, true);
   }, []);
 
   const onUp = useCallback((btn, e) => {
     e.preventDefault();
-    if (!activeKeys.current.has(btn.code)) return;
-    activeKeys.current.delete(btn.code);
-    fireKey('keyup', btn);
+    if (!activeBtns.current.has(btn.index)) return;
+    activeBtns.current.delete(btn.index);
+    sendInput(btn.index, false);
   }, []);
 
   const bind = useCallback((id) => {

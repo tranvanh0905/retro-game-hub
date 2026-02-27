@@ -43,11 +43,14 @@ export default function Emulator({ game }) {
     const sys = SYSTEMS[game.system];
     setStatus('loading');
 
-    // Cleanup previous
+    // Cleanup previous emulator instance
+    try { window.EJS_emulator?.callEvent?.('exit'); } catch {}
     if (scriptRef.current && document.body.contains(scriptRef.current)) {
       document.body.removeChild(scriptRef.current);
     }
     if (ref.current) ref.current.innerHTML = '';
+    // Remove leftover EJS style/link tags
+    document.querySelectorAll('style[data-emulatorjs], link[data-emulatorjs]').forEach(el => el.remove());
 
     // Cleanup old EJS globals
     ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions','EJS_biosUrl','EJS_VirtualGamepadSettings'].forEach(k => delete window[k]);
@@ -71,9 +74,9 @@ export default function Emulator({ game }) {
       window.EJS_biosUrl = `${CDN}/bios/scph5501.bin`;
     }
 
-    // Load EmulatorJS
+    // Load EmulatorJS (cache-buster forces re-execution on re-entry)
     const s = document.createElement('script');
-    s.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+    s.src = `https://cdn.emulatorjs.org/stable/data/loader.js?t=${Date.now()}`;
     s.async = true;
     s.onload = () => setTimeout(() => setStatus('ready'), 1200);
     s.onerror = () => setStatus('error');
@@ -81,9 +84,11 @@ export default function Emulator({ game }) {
     scriptRef.current = s;
 
     return () => {
+      try { window.EJS_emulator?.callEvent?.('exit'); } catch {}
       if (scriptRef.current && document.body.contains(scriptRef.current)) {
         document.body.removeChild(scriptRef.current);
       }
+      document.querySelectorAll('style[data-emulatorjs], link[data-emulatorjs]').forEach(el => el.remove());
       ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions','EJS_biosUrl','EJS_VirtualGamepadSettings'].forEach(k => delete window[k]);
     };
   }, [game?.id]);
