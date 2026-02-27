@@ -1,0 +1,7 @@
+node_modules
+dist
+.vercel
+
+# Large assets — hosted on external CDN
+public/roms
+public/images

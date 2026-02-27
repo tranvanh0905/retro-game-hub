@@ -1,0 +1,5 @@
+.fbar{display:flex;align-items:center;gap:7px;padding:14px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.fbar-systems{display:flex;gap:6px;flex-wrap:wrap;flex:1;align-items:center}
+.fbar-count{font-size:11px;color:var(--accent);font-family:var(--pixel);font-size:9px}
+.fbar-right{display:flex;gap:6px;margin-left:auto}
+@media(max-width:768px){.fbar-count{font-size:8px}}

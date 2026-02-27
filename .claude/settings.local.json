@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(while read f)",
+      "Bash(do basename \"$f\")",
+      "Bash(done)",
+      "Bash(find \"/Users/anhtv/Downloads/retro-hub-react/Tong hop ROM game nes\" -name \"*.zip\" -exec cp {} \"/Users/anhtv/Downloads/retro-hub-react/public/roms/nes/\" ;)",
+      "Bash(node scripts/generate-games.js)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s \"https://api.github.com/repos/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/git/trees/master\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s \"https://api.github.com/repos/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/git/trees/e57a3f0ad6158ca9ed99003cd1f785291101c917?recursive=0\")",
+      "Bash(python3 -c \":*)",
+      "Bash(curl -s \"https://api.github.com/repos/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/git/trees/b2aec9ccf9d30acf8d497b1ffe1fe355af6542e5\")",
+      "Bash(curl -s \"https://api.github.com/repos/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/git/trees/08c0e94572c5e20815ce55f0fd3f63acfa4c6a8f\")",
+      "Bash(node scripts/download-thumbnails.js)",
+      "Bash(xargs ls -lh)",
+      "Bash(curl -sL -o /Users/anhtv/Downloads/retro-hub-react/public/images/ps1/yu-gi-oh-forbidden-memories.png \"https://raw.githubusercontent.com/libretro-thumbnails/Sony_-_PlayStation/master/Named_Snaps/Yu-Gi-Oh!%20Forbidden%20Memories%20\\(USA\\).png\")",
+      "Bash(node scripts/generate-sitemap.js)",
+      "Bash(npm run build)",
+      "Bash(npm install -g vercel)",
+      "Bash(vercel whoami)",
+      "Bash(vercel --prod --yes)",
+      "Bash(git init /Users/anhtv/Downloads/retro-hub-react)",
+      "Bash(git -C /Users/anhtv/Downloads/retro-hub-react add -A)",
+      "Bash(git -C /Users/anhtv/Downloads/retro-hub-react status --short)"
+    ]
+  }
+}
