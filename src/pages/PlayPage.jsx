@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { GAMES, SYSTEMS } from '../data/games';
 import Emulator from '../components/Emulator';
 import Controls from '../components/Controls';
+import LandscapePrompt from '../components/LandscapePrompt';
 import GameDetail from '../components/GameDetail';
 import RelatedGames from '../components/RelatedGames';
 import './PlayPage.css';
 
-export default function PlayPage({ favs, toggleFav, isFav }) {
+export default function PlayPage({ favs, toggleFav, isFav, addRecent }) {
   const { slug } = useParams();
   const nav = useNavigate();
   const game = GAMES.find(g => g.slug === slug);
@@ -20,6 +21,7 @@ export default function PlayPage({ favs, toggleFav, isFav }) {
       document.querySelector('meta[name="description"]')?.setAttribute('content',
         `Play ${game.title} (${sys.full}) online for free in your browser. No downloads required.`
       );
+      addRecent(game.id);
     }
     return () => { document.title = 'Retro Game Hub — Play Classic NES & PS1 Games Online Free'; };
   }, [slug, game]);
@@ -53,6 +55,7 @@ export default function PlayPage({ favs, toggleFav, isFav }) {
         </button>
       </div>
 
+      <LandscapePrompt />
       <div className="pp-body">
         <Emulator game={game} />
         <Controls />

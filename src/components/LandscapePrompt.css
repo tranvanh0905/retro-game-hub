@@ -1,0 +1,11 @@
+.lp-overlay{position:fixed;inset:0;z-index:9999;background:rgba(8,8,13,.95);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);animation:lpFadeIn .3s ease-out}
+.lp-content{text-align:center;padding:30px}
+.lp-phone{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px}
+.lp-phone-icon{font-size:48px;animation:lpRotate 2s ease-in-out infinite}
+.lp-arrow{font-size:32px;color:var(--accent);animation:lpPulse 2s ease-in-out infinite}
+.lp-text{font-family:var(--pixel);font-size:11px;color:var(--accent);line-height:1.8;max-width:260px;margin:0 auto}
+.lp-dismiss{margin-top:24px;padding:10px 24px;background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:var(--mono);font-size:12px;cursor:pointer;transition:all .2s}
+.lp-dismiss:active{border-color:var(--accent);color:var(--accent)}
+@keyframes lpFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes lpRotate{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-90deg)}}
+@keyframes lpPulse{0%,100%{opacity:.4}50%{opacity:1}}

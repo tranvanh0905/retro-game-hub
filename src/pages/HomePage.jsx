@@ -8,7 +8,7 @@ import './HomePage.css';
 
 const PAGE_SIZE = 60;
 
-export default function HomePage({ favs, toggleFav, isFav }) {
+export default function HomePage({ favs, toggleFav, isFav, recent }) {
   useEffect(() => {
     document.title = 'Retro Game Hub — Play Classic NES & PS1 Games Online Free';
   }, []);
@@ -72,6 +72,13 @@ export default function HomePage({ favs, toggleFav, isFav }) {
     return () => observer.disconnect();
   }, [loadMore]);
 
+  const recentGames = useMemo(() => {
+    if (!recent || !recent.length) return [];
+    const gameMap = new Map(GAMES.map(g => [g.id, g]));
+    return recent.slice(0, 6).map(r => gameMap.get(r.id)).filter(Boolean);
+  }, [recent]);
+  const [showRecent, setShowRecent] = useState(true);
+
   const nesSys = SYSTEMS.nes;
   const ps1Sys = SYSTEMS.ps1;
 
@@ -94,6 +101,24 @@ export default function HomePage({ favs, toggleFav, isFav }) {
             </button>
           ))}
         </div>
+
+        {/* Continue Playing */}
+        {recentGames.length > 0 && (
+          <section className="featured-section recent-section">
+            <button className="featured-header" onClick={() => setShowRecent(v => !v)}>
+              <span className="featured-title recent-title">CONTINUE PLAYING</span>
+              <span className="featured-count">{recentGames.length} game{recentGames.length !== 1 ? 's' : ''}</span>
+              <span className={`featured-arrow ${showRecent ? 'open' : ''}`}>&#9660;</span>
+            </button>
+            {showRecent && (
+              <div className="game-grid featured-grid">
+                {recentGames.map((g, i) => (
+                  <GameCard key={g.id} game={g} idx={i} isFav={isFav(g.id)} onFav={toggleFav} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* NES Classic Hits */}
         {(activeSystem === 'all' || activeSystem === 'nes') && (

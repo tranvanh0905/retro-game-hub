@@ -6,3 +6,9 @@
 .pp-body{max-width:920px;margin:0 auto;padding:18px 18px 50px}
 .pp-404{text-align:center;padding:80px 20px}
 .pp-404-t{font-family:var(--pixel);font-size:12px;color:var(--accent);margin-top:10px}
+
+@media(max-width:768px){
+  .pp-body{padding:0 0 50px;max-width:100%}
+  .pp-head{padding:8px 12px;gap:8px}
+  .pp-htitle{font-size:13px}
+}
