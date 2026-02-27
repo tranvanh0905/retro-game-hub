@@ -51,7 +51,13 @@ export default function Emulator({ game }) {
     if (ref.current) ref.current.innerHTML = '';
     document.querySelectorAll('style[data-emulatorjs], link[data-emulatorjs]').forEach(el => el.remove());
 
-    // Clear EJS IndexedDB cache (saves, states, ROM cache)
+    // Clear EJS storage (saves, states, ROM cache)
+    try {
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (/ejs|emulator|retroarch|idbfs/i.test(k)) localStorage.removeItem(k);
+      }
+    } catch {}
     try {
       indexedDB.databases().then(dbs => {
         dbs.forEach(db => {
@@ -73,7 +79,7 @@ export default function Emulator({ game }) {
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
     window.EJS_color = '#00ff88';
     window.EJS_startOnLoaded = true;
-    window.EJS_defaultOptions = {};
+    window.EJS_defaultOptions = { 'pause_nonactive': 'false' };
     // Disable built-in virtual gamepad (we use custom MobileGamepad)
     window.EJS_VirtualGamepadSettings = [];
 
@@ -86,7 +92,21 @@ export default function Emulator({ game }) {
     const s = document.createElement('script');
     s.src = `https://cdn.emulatorjs.org/stable/data/loader.js?t=${Date.now()}`;
     s.async = true;
-    s.onload = () => setTimeout(() => setStatus('ready'), 1200);
+    s.onload = () => {
+      // Periodically auto-resume emulator to dismiss any pause/start overlay
+      const autoResume = setInterval(() => {
+        try {
+          const emu = window.EJS_emulator;
+          if (emu?.gameManager) {
+            if (emu.paused) emu.play();
+            clearInterval(autoResume);
+            setStatus('ready');
+          }
+        } catch {}
+      }, 400);
+      // Fallback: mark ready after 6s even if gameManager not detected
+      setTimeout(() => { clearInterval(autoResume); setStatus('ready'); }, 6000);
+    };
     s.onerror = () => setStatus('error');
     document.body.appendChild(s);
     scriptRef.current = s;

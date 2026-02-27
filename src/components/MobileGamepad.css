@@ -33,24 +33,45 @@
   /* Main row: dpad left, actions right */
   .mgp-main{display:flex;align-items:center;justify-content:space-between;padding:0 6px}
 
-  /* D-Pad grid */
+  /* Circular D-Pad */
   .mgp-dpad{
-    display:grid;
-    grid-template-columns:48px 48px 48px;
-    grid-template-rows:48px 48px 48px;
-    gap:3px;
+    width:140px;height:140px;
+    border-radius:50%;
+    background:rgba(255,255,255,.04);
+    border:2px solid rgba(0,255,136,.15);
+    position:relative;
+    touch-action:none;
+    flex-shrink:0;
   }
-  .mgp-d{
-    background:rgba(255,255,255,.07);
-    color:#ccc;font-size:16px;
-    border-radius:6px;
-    border:1px solid rgba(255,255,255,.1);
+  .mgp-dpad.dpad-on{
+    border-color:rgba(0,255,136,.35);
+    background:rgba(0,255,136,.03);
   }
-  .mgp-d-up{grid-column:2;grid-row:1}
-  .mgp-d-left{grid-column:1;grid-row:2}
-  .mgp-d-center{grid-column:2;grid-row:2;background:rgba(255,255,255,.03);border-radius:6px}
-  .mgp-d-right{grid-column:3;grid-row:2}
-  .mgp-d-down{grid-column:2;grid-row:3}
+
+  /* Direction arrows */
+  .dp{
+    position:absolute;
+    color:rgba(255,255,255,.25);
+    font-size:20px;
+    pointer-events:none;
+    transition:color .08s,text-shadow .08s;
+    line-height:1;
+  }
+  .dp-u{top:12px;left:50%;transform:translateX(-50%)}
+  .dp-d{bottom:12px;left:50%;transform:translateX(-50%)}
+  .dp-l{left:14px;top:50%;transform:translateY(-50%)}
+  .dp-r{right:14px;top:50%;transform:translateY(-50%)}
+  .dp.hi{color:var(--accent);text-shadow:0 0 10px rgba(0,255,136,.6)}
+
+  /* Center dot */
+  .dp-dot{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:14px;height:14px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+  }
 
   /* A / B action buttons */
   .mgp-actions{display:flex;align-items:center;gap:14px}
@@ -76,7 +97,9 @@
 
 /* Smaller phones */
 @media(max-width:380px){
-  .mgp-dpad{grid-template-columns:40px 40px 40px;grid-template-rows:40px 40px 40px}
+  .mgp-dpad{width:120px;height:120px}
+  .dp{font-size:17px}
+  .dp-u{top:10px}.dp-d{bottom:10px}.dp-l{left:11px}.dp-r{right:11px}
   .mgp-ab{width:62px;height:62px;font-size:17px}
   .mgp-meta{padding:7px 16px;font-size:8px}
 }
