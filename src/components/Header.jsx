@@ -89,6 +89,7 @@ export default function Header() {
           )}
         </div>
         <div className="header-stats"><span className="dot">●</span> {GAMES.length} games</div>
+        <a className="header-contact" href="mailto:vietanhtran095@gmail.com">vietanhtran095@gmail.com</a>
       </div>
       <div className="header-glow" />
     </header>
