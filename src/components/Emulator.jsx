@@ -49,8 +49,16 @@ export default function Emulator({ game }) {
       document.body.removeChild(scriptRef.current);
     }
     if (ref.current) ref.current.innerHTML = '';
-    // Remove leftover EJS style/link tags
     document.querySelectorAll('style[data-emulatorjs], link[data-emulatorjs]').forEach(el => el.remove());
+
+    // Clear EJS IndexedDB cache (saves, states, ROM cache)
+    try {
+      indexedDB.databases().then(dbs => {
+        dbs.forEach(db => {
+          if (/emulator|ejs|retroarch|idbfs/i.test(db.name)) indexedDB.deleteDatabase(db.name);
+        });
+      });
+    } catch {}
 
     // Cleanup old EJS globals
     ['EJS_player','EJS_core','EJS_gameUrl','EJS_gameName','EJS_pathtodata','EJS_color','EJS_startOnLoaded','EJS_emulator','EJS_defaultOptions','EJS_biosUrl','EJS_VirtualGamepadSettings'].forEach(k => delete window[k]);
