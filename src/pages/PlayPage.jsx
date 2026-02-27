@@ -4,7 +4,6 @@ import { GAMES, SYSTEMS } from '../data/games';
 import Emulator from '../components/Emulator';
 import MobileGamepad from '../components/MobileGamepad';
 import Controls from '../components/Controls';
-import LandscapePrompt from '../components/LandscapePrompt';
 import GameDetail from '../components/GameDetail';
 import RelatedGames from '../components/RelatedGames';
 import './PlayPage.css';
@@ -56,7 +55,6 @@ export default function PlayPage({ favs, toggleFav, isFav, addRecent }) {
         </button>
       </div>
 
-      <LandscapePrompt />
       <div className="pp-body">
         <Emulator game={game} />
         <MobileGamepad />
