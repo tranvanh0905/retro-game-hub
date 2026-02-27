@@ -7,14 +7,14 @@
 .sys-tag:hover{border-color:var(--tag-color,var(--accent));color:var(--text);background:rgba(255,255,255,.03)}
 .sys-tag.active{border-color:var(--tag-color,var(--accent));color:var(--tag-color,var(--accent));background:color-mix(in srgb,var(--tag-color,var(--accent)) 8%,transparent);box-shadow:0 0 12px color-mix(in srgb,var(--tag-color,var(--accent)) 15%,transparent)}
 .sys-tag-label{font-weight:500}
-.sys-tag-count{font-size:10px;opacity:.6}
+.sys-tag-count{font-size:11px;opacity:.6}
 
 /* Featured section */
 .featured-section{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;background:linear-gradient(135deg,rgba(0,255,136,0.03),rgba(14,14,22,0.8));overflow:hidden}
 .featured-header{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;background:none;border:none;cursor:pointer;color:var(--text);font-family:var(--mono);transition:background .2s}
 .featured-header:hover{background:rgba(0,255,136,0.04)}
-.featured-title{font-family:var(--pixel);font-size:11px;color:var(--accent);letter-spacing:1px}
-.featured-count{font-size:10px;color:var(--muted);margin-left:auto}
+.featured-title{font-family:var(--pixel);font-size:13px;color:var(--accent);letter-spacing:1px}
+.featured-count{font-size:12px;color:var(--muted);margin-left:auto}
 .featured-arrow{font-size:9px;color:var(--muted);transition:transform .25s}
 .featured-arrow.open{transform:rotate(180deg)}
 .featured-grid{padding:0 12px 14px}
@@ -24,7 +24,7 @@
 .ps1-section .featured-header:hover{background:rgba(52,152,219,0.06)}
 .ps1-title{color:#3498db}
 
-.results-count{padding:12px 0 6px;font-size:11px;color:var(--muted)}
+.results-count{padding:12px 0 6px;font-size:12px;color:var(--muted)}
 .results-count .hl{color:var(--accent)}
 .game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
 .empty{text-align:center;padding:60px 20px}

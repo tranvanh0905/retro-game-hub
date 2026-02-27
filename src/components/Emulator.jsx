@@ -1,11 +1,42 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { SYSTEMS, romUrl } from '../data/games';
 import './Emulator.css';
 
 export default function Emulator({ game }) {
   const ref = useRef(null);
+  const wrapRef = useRef(null);
   const scriptRef = useRef(null);
   const [status, setStatus] = useState('loading'); // loading | ready | error
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = useCallback(async () => {
+    const target = ref.current;
+    if (!target) return;
+
+    // Try EmulatorJS internal fullscreen button first
+    const ejsBtn = Array.from(target.querySelectorAll('a, button, li, span'))
+      .find(el => /fullscreen/i.test(el.textContent) && el.closest('#emu-target'));
+    if (ejsBtn) {
+      ejsBtn.click();
+      try { await screen.orientation.lock('landscape'); } catch {}
+      return;
+    }
+
+    // Fallback: fullscreen on the EJS container or our wrapper
+    const ejsContainer = target.querySelector('div') || wrapRef.current;
+    if (!document.fullscreenElement) {
+      await ejsContainer.requestFullscreen().catch(() => {});
+      try { await screen.orientation.lock('landscape'); } catch {}
+    } else {
+      await document.exitFullscreen().catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
 
   useEffect(() => {
     if (!game) return;
@@ -49,8 +80,11 @@ export default function Emulator({ game }) {
   }, [game?.id]);
 
   return (
-    <div className="emu-wrap">
+    <div className={`emu-wrap${isFullscreen ? ' emu-fs' : ''}`} ref={wrapRef}>
       <div id="emu-target" ref={ref} className="emu-target" />
+      <button className="emu-fs-btn" onClick={toggleFullscreen} title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}>
+        {isFullscreen ? '✕' : '⛶'}
+      </button>
       {status === 'loading' && (
         <div className="emu-overlay">
           <div className="spinner" />

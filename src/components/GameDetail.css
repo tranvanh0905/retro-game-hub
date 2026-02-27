@@ -7,7 +7,7 @@
 .gd-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .gd-desc{font-size:12px;line-height:1.7;color:#aaa;margin:0}
 .gd-genres{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
-.gd-legal{margin-top:12px;padding:8px 12px;background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.1);border-radius:4px;font-size:10px;color:var(--dim);line-height:1.5}
+.gd-legal{margin-top:12px;padding:8px 12px;background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.1);border-radius:4px;font-size:12px;color:var(--dim);line-height:1.5}
 .gd-legal strong{color:var(--accent)}
 .gd-legal a{color:var(--accent)}
 .gd-dl-link{margin-left:6px}

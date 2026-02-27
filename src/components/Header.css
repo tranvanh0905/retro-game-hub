@@ -3,8 +3,8 @@
 .header-glow{height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
 .logo{display:flex;align-items:center;gap:9px;cursor:pointer;flex-shrink:0}
 .logo-icon{width:32px;height:32px;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.logo-title{font-family:var(--pixel);font-size:10px;color:var(--accent);letter-spacing:2px}
-.logo-sub{font-size:7px;color:var(--muted);letter-spacing:2.5px;margin-top:1px}
+.logo-title{font-family:var(--pixel);font-size:12px;color:var(--accent);letter-spacing:2px}
+.logo-sub{font-size:9px;color:var(--muted);letter-spacing:2.5px;margin-top:1px}
 
 /* Search bar — prominent */
 .search-wrap{flex:1;max-width:500px;position:relative;z-index:200}
@@ -17,7 +17,7 @@
 
 /* Search dropdown */
 .search-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:8px;max-height:400px;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.6)}
-.sd-count{padding:8px 14px;font-size:9px;color:var(--muted);border-bottom:1px solid var(--border);letter-spacing:.5px}
+.sd-count{padding:8px 14px;font-size:11px;color:var(--muted);border-bottom:1px solid var(--border);letter-spacing:.5px}
 .sd-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 14px;background:none;border:none;border-bottom:1px solid rgba(26,26,40,.5);color:var(--text);font-family:var(--mono);font-size:12px;cursor:pointer;text-align:left;transition:background .15s}
 .sd-item:last-child{border-bottom:none}
 .sd-item:hover{background:rgba(0,255,136,.06)}
