@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+export { usePageTracking } from './usePageTracking';
 
 export function useDebounce(value, delay = 200) {
   const [d, setD] = useState(value);
